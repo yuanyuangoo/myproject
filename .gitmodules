@@ -1,0 +1,9 @@
+[submodule "pose-hg-demo"]
+	path = pose-hg-demo
+	url = https://github.com/yuanyuangoo/pose-hg-demo.git
+[submodule "py-faster-rcnn"]
+	path = py-faster-rcnn
+	url = https://github.com/yuanyuangoo/py-faster-rcnn.git
+[submodule "camera_and_pose"]
+	path = camera_and_pose
+	url = https://github.com/yuanyuangoo/camera_and_pose.git
