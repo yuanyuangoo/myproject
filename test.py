@@ -86,10 +86,7 @@ if __name__ == '__main__':
         print 'hourglass'
         pose2d=hg.run(im_file,box)
 
-        print 'camera and pose'
-        cp.getPose(im_file,pose2d)
-        cv2.waitKey (0)
-        cv2.destroyAllWindows()
-
-    plt.show()
-    cv2.destroyAllWindows()
+    #    print 'camera and pose'
+    #    cp.getPose(im_file,pose2d)
+    #    cv2.waitKey (0)
+    #    cv2.destroyAllWindows()
