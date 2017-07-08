@@ -12,12 +12,13 @@ from utils.timer import Timer
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.io as sio
-import caffe, os, sys, cv2
+import caffe, os, cv2
 import argparse
 import demo1 as de
 import hourglass as hg
 import cv2
 import cameraAndPose as cp
+
 CLASSES = ('__background__',
            'aeroplane', 'bicycle', 'bird', 'boat',
            'bottle', 'bus', 'car', 'cat', 'chair',
@@ -72,6 +73,9 @@ if __name__ == '__main__':
 
     im_file = os.path.join(cfg.DATA_DIR, 'demo', im_names[0])
     im = cv2.imread(im_file)
+    cv2.namedWindow("Image")  
+#    cv2.imshow("Image", im)
+#    cv2.waitKey (0)
     
     for im_name in im_names:
         print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
@@ -84,4 +88,8 @@ if __name__ == '__main__':
 
         print 'camera and pose'
         cp.getPose(im_file,pose2d)
+        cv2.waitKey (0)
+        cv2.destroyAllWindows()
+
     plt.show()
+    cv2.destroyAllWindows()
