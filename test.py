@@ -16,7 +16,6 @@ import caffe, os, cv2
 import argparse
 import demo1 as de
 import hourglass as hg
-import cv2
 import cameraAndPose as cp
 
 CLASSES = ('__background__',
@@ -66,14 +65,14 @@ if __name__ == '__main__':
         cfg.GPU_ID = args.gpu_id
     net = caffe.Net(prototxt, caffemodel, caffe.TEST)
 
-    print '\n\nLoaded network {:s}'.format(caffemodel)
+    #print '\n\nLoaded network {:s}'.format(caffemodel)
 
     #im_names = ['004545.jpg']
     im_names = ['1.jpg']
 
     im_file = os.path.join(cfg.DATA_DIR, 'demo', im_names[0])
     im = cv2.imread(im_file)
-    cv2.namedWindow("Image")  
+#    cv2.namedWindow("Image")  
 #    cv2.imshow("Image", im)
 #    cv2.waitKey (0)
     
@@ -86,7 +85,13 @@ if __name__ == '__main__':
         print 'hourglass'
         pose2d=hg.run(im_file,box)
 
-    #    print 'camera and pose'
-    #    cp.getPose(im_file,pose2d)
-    #    cv2.waitKey (0)
-    #    cv2.destroyAllWindows()
+        print 'camera and pose'
+        X, R, t=cp.getPose(im_file,pose2d)
+
+        print X
+        print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+        print R
+        print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+        print t
+#        cv2.waitKey (0)
+#        cv2.destroyAllWindows()
