@@ -6,7 +6,9 @@ load('example1.mat');
 im=imread(input_img);
 imshow(im);
 xy=convert(pose2d)
-[X, R, t] = recon3DPose(im,xy,'viz',0);
+for i=1:size(xy,3)
+    [X(:,:,i), R(:,:,i), t(:,:,i)] = recon3DPose(im,xy(:,:,i),'viz',0);
+end
 end
 
 
@@ -16,11 +18,11 @@ function pose2d_c= convert(pose2d)
         tmp=pose2d{j};
         for i=1:16
             pos=tmp{i};
-            pose2d_c(:,i,j)=[pos{1},pos{2}];
+            t(:,i,j)=[pos{1},pos{2}];
         end
         tm=zeros(2,15);
         for i=1:16
-            tm(:,index(i))=pose2d_c(:,i,j);
+            tm(:,index(i))=t(:,i,j);
         end
         pose2d_c(:,:,j)=tm;
     end
