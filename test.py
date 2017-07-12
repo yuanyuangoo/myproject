@@ -17,7 +17,7 @@ import argparse
 import demo1 as de
 import hourglass as hg
 import cameraAndPose as cp
-
+import exportXML as ex
 CLASSES = ('__background__',
            'aeroplane', 'bicycle', 'bird', 'boat',
            'bottle', 'bus', 'car', 'cat', 'chair',
@@ -87,15 +87,9 @@ if __name__ == '__main__':
         pose2d=hg.run(im_file,box)
 
         print 'camera and pose'
-        X, R, t=cp.getPose(im_file,pose2d)
+        pose3d, R, t=cp.getPose(im_file,pose2d)
+        print pose3d[1]
 
-        
-
-        print X
-        print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-        print R
-        print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-        print t
-
+        ex.exportXML(pose3d,'1.xml')
 #        cv2.waitKey (0)
 #        cv2.destroyAllWindows()
