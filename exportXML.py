@@ -1,3 +1,104 @@
-from xmlbuilder import XMLBuilder 
-def exportXML(filename)
-x = XMLBuilder('root') 
+from xml.dom.minidom import Document
+
+def exportXML(pose,filename):
+
+    doc = Document()
+
+    SEQUENCE = doc.createElement('SEQUENCE')    
+    SEQUENCE.setAttribute('DatasetName',"HumanEvaI")
+    SEQUENCE.setAttribute('FrameStart',"6")
+    SEQUENCE.setAttribute('Partition',"Validate")
+    SEQUENCE.setAttribute('FrameEnd',"590")
+    SEQUENCE.setAttribute('Trial',"1")
+    SEQUENCE.setAttribute('SubjectName',"S1")
+    SEQUENCE.setAttribute('ActionType',"Walking")
+    SEQUENCE.setAttribute('DatasetBasePath',"../")
+    doc.appendChild(SEQUENCE)
+
+
+    Camera = doc.createElement('Camera')
+    SEQUENCE.appendChild(Camera)
+    Camera_text=doc.createTextNode('C1')
+    Camera.appendChild(Camera_text)
+
+    Frame = doc.createElement('Frame')
+    SEQUENCE.appendChild(Frame)
+
+    Number = doc.createElement('Number')
+    Frame.appendChild(Number)
+    Number_text=doc.createTextNode('1')
+    Number.appendChild(Number_text)
+
+    Pose = doc.createElement('Pose')
+    Frame.appendChild(Pose)
+
+    creatJoint(doc,Pose,'torsoProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'torsoDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperLArmProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperLArmDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerLArmProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerLArmDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperRArmProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperRArmDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerRArmProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerRArmDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperLLegProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperLLegDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerLLegProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerLLegDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperRLegProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'upperRLegDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerRLegProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'lowerRLegDistal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'headProximal','1','-722.810296','-773.585228','1302.923889')
+    creatJoint(doc,Pose,'headDistal','1','-722.810296','-773.585228','1302.923889')
+
+
+    Error = doc.createElement('Error')
+    Frame.appendChild(Error)
+    Error_text=doc.createTextNode('N/A')
+    Error.appendChild(Error_text)
+
+    f = open(filename,'w')
+    doc.writexml(f,indent = '',newl = '\n', addindent = '\t',encoding='utf-8')
+    f.close()
+
+def creatJoint(doc,Pose,name,enabled,x,y,z):
+    Joint = doc.createElement('Joint')
+    Pose.appendChild(Joint)
+
+    Name = doc.createElement('Name')
+    Joint.appendChild(Name)
+    Name_text=doc.createTextNode(name)
+    Name.appendChild(Name_text)
+
+    Enabled = doc.createElement('Enabled')
+    Joint.appendChild(Enabled)
+    Enabled_text=doc.createTextNode(enabled)
+    Enabled.appendChild(Enabled_text)
+
+    X = doc.createElement('X')
+    Joint.appendChild(X)
+    X_text=doc.createTextNode(x)
+    X.appendChild(X_text)
+
+    Y = doc.createElement('Y')
+    Joint.appendChild(Y)
+    Y_text=doc.createTextNode(y)
+    Y.appendChild(Y_text)
+
+    Z = doc.createElement('Z')
+    Joint.appendChild(Z)
+    Z_text=doc.createTextNode(z)
+    Z.appendChild(Z_text)
+def parse(filename):
+# -*- coding: utf-8 -*-
+#==========================
+    import xml.etree.ElementTree as ET
+    tree = ET.parse(filename)
+    root = tree.getroot()
+    print('root-tag:',root.tag,',root-attrib:',root.attrib,',root-text:',root.text)
+    for child in root:
+        print('child-tag is:',child.tag,',child.attrib:',child.attrib,',child.text:',child.text)
+        for sub in child:
+            print('sub-tag is:',sub.tag,',sub.attrib:',sub.attrib,',sub.text:',sub.text)
