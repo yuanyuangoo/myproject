@@ -91,6 +91,7 @@ if __name__ == '__main__':
         pose3d=np.asarray(pose3d)
         print pose3d
 
-        ex.exportXML(pose3d,'1.xml')
+        print 'exporting XMLs'
+        ex.exportXMLs(pose3d,'pose')
 #        cv2.waitKey (0)
 #        cv2.destroyAllWindows()
