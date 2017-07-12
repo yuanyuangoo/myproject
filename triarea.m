@@ -7,7 +7,7 @@ im=imread(input_img);
 imshow(im);
 xy=convert(pose2d)
 for i=1:size(xy,3)
-    [X(:,:,i), R(:,:,i), t(:,:,i)] = recon3DPose(im,xy(:,:,i),'viz',0);
+    [X(i,:,:), R(i,:,:), t(i,:,:)] = recon3DPose(im,xy(:,:,i),'viz',0);
 end
 end
 

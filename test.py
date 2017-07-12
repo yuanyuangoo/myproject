@@ -88,7 +88,8 @@ if __name__ == '__main__':
 
         print 'camera and pose'
         pose3d, R, t=cp.getPose(im_file,pose2d)
-        print pose3d[1]
+        pose3d=np.asarray(pose3d)
+        print pose3d
 
         ex.exportXML(pose3d,'1.xml')
 #        cv2.waitKey (0)
