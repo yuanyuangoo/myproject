@@ -43,7 +43,6 @@ def exportXML(pose,filename):
     for index in range(len(namelist)):
         name=namelist[index]
         i=Index[index]-1
-        print index
         enabled=str(1)
         X=str(pose[i][0])
         Y=str(pose[i][1])

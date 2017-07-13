@@ -71,6 +71,8 @@ if __name__ == '__main__':
     im_names = ['1.jpg']
 
     im_file = os.path.join(cfg.DATA_DIR, 'demo', im_names[0])
+    im_file = os.path.join('images', im_names[0])
+
     im = cv2.imread(im_file)
 
 #    cv2.namedWindow("Image")  
