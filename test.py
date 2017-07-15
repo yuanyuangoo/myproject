@@ -16,8 +16,9 @@ import caffe, os, cv2
 import argparse
 import demo1 as de
 import hourglass as hg
-import cameraAndPose as cp
+import recon3DPose as r3p
 import exportXML as ex
+import loadvideo as ld
 CLASSES = ('__background__',
            'aeroplane', 'bicycle', 'bird', 'boat',
            'bottle', 'bus', 'car', 'cat', 'chair',
@@ -70,27 +71,27 @@ if __name__ == '__main__':
     #im_names = ['004545.jpg']
     im_names = ['1.jpg']
 
-    im_file = os.path.join(cfg.DATA_DIR, 'demo', im_names[0])
+    #im_file = os.path.join(cfg.DATA_DIR, 'demo', im_names[0])
     im_file = os.path.join('images', im_names[0])
 
     im = cv2.imread(im_file)
 
-#    cv2.namedWindow("Image")  
-#    cv2.imshow("Image", im)
-#    cv2.waitKey (0)
+    video_file='/media/a/74D48535D484FA9E/Humaneva/S2/Image_Data/Box_1_(C3).avi'
+    Num_Frames=6
     
-    for im_name in im_names:
+    for video in video_file:
         print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-        print 'Demo for data/demo/{}'.format(im_name)
+        print 'Demo for data/demo/{}'.format(video)
+        im=ld.loadvideo(Num_Frames,video_file)
         box=de.demo_show(net, im)
 
 
         print 'hourglass'
-        pose2d=hg.run(im_file,box)
+        pose2d=hg.run(im,box)
 
         print 'camera and pose'
-        pose3d, R, t=cp.getPose(im_file,pose2d)
-        pose3d=np.asarray(pose3d)
+        pose3d, R, t=r3p.recon3DPose(video_file,pose2d,1)
+        #pose3d=np.asarray(pose3d)
         print pose3d
 
         print 'exporting XMLs'
